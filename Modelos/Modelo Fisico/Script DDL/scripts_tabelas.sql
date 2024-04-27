@@ -2,10 +2,10 @@ CREATE DATABASE IF NOT EXISTS db_netflix;
 use db_netflix;
 
 CREATE TABLE IF NOT EXISTS Show_ (
-show_id INT AUTO_INCREMENT PRIMARY KEY,
+show_id VARCHAR AUTO_INCREMENT PRIMARY KEY,
 title VARCHAR (255) NOT NULL,
 type_show VARCHAR (255) NOT NULL,
-release_year DATE NOT NULL,
+release_year INT NOT NULL,
 data_added DATE NOT NULL,
 duration INT (4) NOT NULL,
 listed_in VARCHAR (255) NOT NULL,
