@@ -1,0 +1,10 @@
+version: "3.5"
+
+services:
+  mySQL-A:
+    build: ./
+    image: dockerfile
+    container_name: "mySQL-A"
+    ports:
+      - "3307:3306"
+
