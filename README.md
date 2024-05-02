@@ -1,6 +1,6 @@
 **Este projeto tem como objetivo analisar o dataset Netflix disponível na plataforma Kaggle. O dataset contém informações sobre filmes e séries disponíveis na plataforma Netflix, como título, data de adição, gênero, diretor, elenco, entre outros.**
 
-O dataset Netflix foi utilizado neste projeto. O dataset pode ser baixado na plataforma **Kaggle**: *https://www.kaggle.com/datasets/syedmubarak/netflix-dataset-latest-2021*
+*O dataset Netflix foi utilizado neste projeto. O dataset pode ser baixado na plataforma* **Kaggle**: *https://www.kaggle.com/datasets/syedmubarak/netflix-dataset-latest-2021*
 
 
 *O dataset foi pré-processado e normalizado. As seguintes etapas foram realizadas:*
@@ -17,6 +17,7 @@ O dataset Netflix foi utilizado neste projeto. O dataset pode ser baixado na pla
 
 ![Modelo_logico_netflix](https://github.com/wesleyruanwr/projeto_UFC/assets/119066770/73266ce3-0ffb-4792-8fb9-f52bb7e805f4)
 
+*Também foram adicionados arquivos Dockerfile e Docker-compose para que a execução do processo possa ser feita em qualquer maquina, estão localizados na pasta* **Docker**
 
-Para realizarmos todo esse processo, nosso grupo utilizou metodologias ágeis e fizemos um ROADMAP para melhor acompanhamento.
-    Link para o ROADMAP: **https://miro.com/app/board/uXjVKRun7Dk=/**
+*Para realizarmos todo esse processo, nosso grupo utilizou metodologias ágeis e fizemos um ROADMAP para melhor acompanhamento.*
+    *Link para o ROADMAP:* **https://miro.com/app/board/uXjVKRun7Dk=/**
