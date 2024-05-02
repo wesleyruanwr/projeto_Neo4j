@@ -19,7 +19,7 @@ for index, row in df.iterrows():
     values = [None if pd.isna(value) else value for value in row.values] # coloca NONE no lugar NAN
     
     sql = """
-    INSERT INTO show_catalog 
+    INSERT INTO show_temporaria
         (show_id, type_show, title, director, cast, country, date_added, release_year, rating, duration, listed_in, description_show) 
     VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
     """
