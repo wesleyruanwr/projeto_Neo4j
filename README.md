@@ -15,6 +15,8 @@
 
     -Mudança de nome da coluna "TYPE" para "TYPE_SHOW": A coluna "TYPE" era uma palavra reservada do MySQL. Para evitar problemas, a coluna foi renomeada para "TYPE_SHOW" e o tipo da coluna foi alterado para STRING.
 
+    -Coluna "DURATION" tinha letras e numeros dentro dela, e era dividida em minutos e seasons,tiramos todos os caracteres que nao fossem numericos de dentro dela e transformamos ela para INT
+
 ![Modelo_logico_netflix](https://github.com/wesleyruanwr/projeto_UFC/assets/119066770/73266ce3-0ffb-4792-8fb9-f52bb7e805f4)
 
 *Também foram adicionados arquivos Dockerfile e Docker-compose para que a execução do processo possa ser feita em qualquer maquina, estão localizados na pasta* **Docker**
