@@ -12,8 +12,8 @@ config = {
     'database': 'mydb'
 }
 
-conn = mysql.connector.connect(**config)
-cursor = conn.cursor()
+con = mysql.connector.connect(**config)
+cursor = con.cursor()
 
 for index, row in df.iterrows():
     sql = """
@@ -28,4 +28,4 @@ for index, row in df.iterrows():
     )
 
 cursor.close()
-conn.close()
+con.close()
