@@ -15,7 +15,7 @@ O dataset Netflix foi utilizado neste projeto. O dataset pode ser baixado na pla
 
     -Mudança de nome da coluna "TYPE" para "TYPE_SHOW": A coluna "TYPE" era uma palavra reservada do MySQL. Para evitar problemas, a coluna foi renomeada para "TYPE_SHOW" e o tipo da coluna foi alterado para STRING.
 
-![foto minyha c3erta](https://github.com/wesleyruanwr/projeto_UFC/assets/119066770/1ceb1687-e2bd-4470-9317-055f9ea03139)
+![Modelo_logico_netflix](https://github.com/wesleyruanwr/projeto_UFC/assets/119066770/73266ce3-0ffb-4792-8fb9-f52bb7e805f4)
 
 ![minha foto](Modelos/Modelo Logico/print/Modelo_logico_netflix.png)
 
