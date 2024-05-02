@@ -16,8 +16,7 @@ con = mysql.connector.connect(**config)
 cursor = con.cursor()
 
 for index, row in df.iterrows():
-    # Verifica se há valores 'nan' e substitui por None
-    values = [None if pd.isna(value) else value for value in row.values]
+    values = [None if pd.isna(value) else value for value in row.values] # coloca NONE no lugar NAN
     
     sql = """
     INSERT INTO netflix_titles 
@@ -26,7 +25,7 @@ for index, row in df.iterrows():
     """
     
     cursor.execute(sql, values)
-    con.commit()  # Commit a transação após cada inserção de dados
+    con.commit()  # da commit na transação toda vez que insere um dado
 
 cursor.close()
 con.close()
