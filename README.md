@@ -3,7 +3,7 @@
 O dataset Netflix foi utilizado neste projeto. O dataset pode ser baixado na plataforma **Kaggle**: *https://www.kaggle.com/datasets/syedmubarak/netflix-dataset-latest-2021*
 
 
-*O dataset foi pré-processado antes da análise. As seguintes etapas foram realizadas:*
+*O dataset foi pré-processado e normalizado. As seguintes etapas foram realizadas:*
 
     -Conversão da coluna "date_added" para o formato DATE: A coluna "date_added" estava no formato "August 4, 2017", que não é  compatível com o tipo DATE no MySQL. Para converter a coluna para o formato DATE.
 
@@ -15,6 +15,9 @@ O dataset Netflix foi utilizado neste projeto. O dataset pode ser baixado na pla
 
     -Mudança de nome da coluna "TYPE" para "TYPE_SHOW": A coluna "TYPE" era uma palavra reservada do MySQL. Para evitar problemas, a coluna foi renomeada para "TYPE_SHOW" e o tipo da coluna foi alterado para STRING.
 
+
+
+![minha foto](Modelos/Modelo Logico/print/Modelo_logico_netflix.png)
 
 
 Para realizarmos todo esse processo, nosso grupo utilizou metodologias ágeis e fizemos um ROADMAP para melhor acompanhamento.
