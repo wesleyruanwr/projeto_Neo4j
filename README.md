@@ -17,8 +17,6 @@ O dataset Netflix foi utilizado neste projeto. O dataset pode ser baixado na pla
 
 ![Modelo_logico_netflix](https://github.com/wesleyruanwr/projeto_UFC/assets/119066770/73266ce3-0ffb-4792-8fb9-f52bb7e805f4)
 
-![minha foto](Modelos/Modelo Logico/print/Modelo_logico_netflix.png)
-
 
 Para realizarmos todo esse processo, nosso grupo utilizou metodologias ágeis e fizemos um ROADMAP para melhor acompanhamento.
     Link para o ROADMAP: **https://miro.com/app/board/uXjVKRun7Dk=/**
