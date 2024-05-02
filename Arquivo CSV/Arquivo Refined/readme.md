@@ -1,1 +1,0 @@
-**O arquivo Refined irá ser adicionado assim que tudo for concluido**
