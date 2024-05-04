@@ -1,7 +1,7 @@
 import pandas as pd
 import mysql.connector
 
-arq = 'Arquivo CSV/Arquivo Refined/netflix_trusted.csv'
+arq = 'Arquivo CSV/Arquivo Refined/netflix_refined.csv'
 df = pd.read_csv(arq)
 
 config = {
