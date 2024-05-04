@@ -1,29 +1,31 @@
-from neo4j import GraphDatabase
-import csv
-
-neo4j_url = "bolt://localhost:7687"
-neo4j_username = "neo4j"
-neo4j_password = "wr99582435"
+import pandas as pd
+import mysql.connector
 
 arq = 'Arquivo CSV/Arquivo Refined/netflix_trusted.csv'
+df = pd.read_csv(arq)
 
+config = {
+    'user': 'root',
+    'password': 'root',
+    'host': 'localhost',
+    'port': 3306,
+    'database': 'ufc'
+}
 
-def inserir_neo4j(neo4j_url, neo4j_username, neo4j_password, csv_file):
+con = mysql.connector.connect(**config)
+cursor = con.cursor()
 
-    conexao = GraphDatabase.driver(neo4j_url, auth=(neo4j_username, neo4j_password))     #conectando com o neo4j
+for index, row in df.iterrows():
+    values = [None if pd.isna(value) else value for value in row.values] # coloca NONE no lugar NAN
+    
+    sql = """
+    INSERT INTO show_temporaria
+        (show_id, type_show, title, director, cast, country, date_added, release_year, rating, duration, listed_in, description_show) 
+    VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+    """
+    
+    cursor.execute(sql, values)
+    con.commit()  # da commit na transação toda vez que insere um dado
 
-
-    with conexao.session() as session:
-        with open(csv_file, 'r', encoding='utf-8') as file:
-            reader = csv.DictReader(file)
-            for row in reader:              #querie para inserir o nó "show"
-
-                query = (
-                    "CREATE (:Show {id_show_catalog: $id_show_catalog, type_show: $type_show, title: $title, director: $director, cast: $cast, "
-                    "country: $country, date_added: $date_added, release_year: $release_year, rating: $rating, duration: $duration, listed_in: $listed_in, description: $description})"
-                )
-                session.run(query, row)
-
-    conexao.close()
-
-inserir_neo4j(neo4j_url, neo4j_username, neo4j_password, arq)
+cursor.close()
+con.close()
