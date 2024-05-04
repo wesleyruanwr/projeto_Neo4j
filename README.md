@@ -17,7 +17,7 @@
 
     -Coluna "DURATION" tinha letras e numeros dentro dela, e era dividida em minutos e seasons,tiramos todos os caracteres que nao fossem numericos de dentro dela e transformamos ela para INT
 
-![Modelo_logico_netflix](https://github.com/wesleyruanwr/projeto_UFC/assets/119066770/0ce7ce80-7539-42d1-befd-5ad4387165f8)
+![Modelo_logico_netflix](https://github.com/wesleyruanwr/projeto_UFC/assets/119066770/40a7eaa2-da38-471e-93b8-1a55e23b3120)
 
 *Também foram adicionados arquivos Dockerfile e Docker-compose para que a execução do processo possa ser feita em qualquer maquina, estão localizados na pasta* **Docker**
 
