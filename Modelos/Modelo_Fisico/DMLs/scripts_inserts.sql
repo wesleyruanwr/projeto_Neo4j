@@ -3,14 +3,21 @@ INSERT INTO duration_type (type_name) VALUES
 ('seasons');
 
 
-INSERT INTO ufc.show_catalog (title_show, rating, listed_in, duration, duration_type_id)
-SELECT st.title, st.rating, st.listed_in, st.duration, 
-    CASE 
-        WHEN st.type_show = 'Movie' THEN 1  
-        WHEN st.type_show = 'TV Show' THEN 2 
-        ELSE NULL
-    END
+INSERT INTO ufc.show_catalog (title_show, rating, listed_in, duration, duration_type_id, release_year, date_added, description_show)
+SELECT st.title,
+       st.rating,
+       st.listed_in,
+       st.duration,
+       CASE 
+           WHEN st.type_show = 'Movie' THEN 1  
+           WHEN st.type_show = 'TV Show' THEN 2 
+           ELSE NULL
+       END AS duration_type_id,
+       st.release_year,
+       st.date_added,
+       st.description_show
 FROM ufc.show_temporaria st;
+
 
 
 INSERT INTO ufc.actor (actor_name)
@@ -63,9 +70,6 @@ SELECT sc.id_show_catalog, c.id_country
 FROM ufc.show_catalog sc
 JOIN ufc.show_temporaria st ON sc.title_show = st.title
 JOIN ufc.country c ON st.country = c.name_country;
-
-
-select * from director;
 
 
 
