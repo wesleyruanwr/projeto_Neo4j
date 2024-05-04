@@ -14,7 +14,7 @@ con = mysql.connector.connect(**config)
 cursor = con.cursor()
 
 
-diretorio = "Arquivo CSV/Arquivos_transição"
+diretorio = "Arquivo CSV/Arquivo_transicao"
 
 
 def extrair_tabela(table_name, csv_filename):
