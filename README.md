@@ -21,13 +21,13 @@
 
 
 
-*Injestão de dados MySQL e criacão das tabelas:*
+*Ingestão de dados MySQL e criacão das tabelas:*
     
     -Criar uma tabela temporaria **(show_temporaria)** para receber os dados pré processados
 
     -Criar as demais tabelas normalizadas de acordo com o modelo lógico
 
-    -Realizados os inserts (DML's) para popular as tabelas normaliadas com os dados da tabela temporaria
+    -Realizados os inserts (DML's) para popular as tabelas normalizadas com os dados da tabela temporaria
 
     -Validar o que foi feito com as consultas (DQL's)
 
@@ -39,11 +39,11 @@
 
     -Executar o código de extração de dados da tabela em formato CSV **(extract.py)**
 
-*Injestão de dados NEO4J*
+*Ingestão de dados NEO4J*
 
     -1ª forma:
 
-        -Execultar o código de injestão de dados **(injestão.py)**
+        -Execultar o código de ingestão de dados **(injestão.py)**
 
     -2ª forma:
 
@@ -54,7 +54,7 @@
                 Por padrão é mais ou menos assim: 
                 C:\Users\Seu Nome\Neo4jDesktop\relate-data\dbmss\dbms-[codigo do seu bd]\import
 
-        -Execultar no próprio neo4j o codigo de criação dos nós e injestão dos dado **(ingestão.cypher)**
+        -Execultar no próprio neo4j o codigo de criação dos nós e ingestão dos dados **(ingestão.cypher)**
 
 *Também foram adicionados arquivos Dockerfile e Docker-compose para que a execução do processo possa ser feita em qualquer maquina, estão localizados na pasta* **Docker**
 
