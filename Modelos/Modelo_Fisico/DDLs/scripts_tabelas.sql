@@ -2,26 +2,39 @@ CREATE DATABASE IF NOT EXISTS mydb;
 USE mydb;
 
 
+CREATE TABLE IF NOT EXISTS duration_type (
+    id_duration_type INT NOT NULL AUTO_INCREMENT,
+    type_name VARCHAR(50) NOT NULL,
+    PRIMARY KEY (id_duration_type)
+);
+
 CREATE TABLE IF NOT EXISTS show_catalog (
   id_show_catalog INT NOT NULL AUTO_INCREMENT,
-  title_show VARCHAR(45) NOT NULL,
+  title_show VARCHAR(255) NOT NULL,
   rating VARCHAR(45) NOT NULL,
-  listed_in VARCHAR(45) NOT NULL,
+  listed_in VARCHAR(255) NOT NULL,
   duration INT NOT NULL,
-  PRIMARY KEY (id_show_catalog)
+  duration_type_id INT NOT NULL,
+  release_year INT,
+  date_added DATE,
+  description_show TEXT,
+  PRIMARY KEY (id_show_catalog),
+  FOREIGN KEY (duration_type_id) REFERENCES duration_type(id_duration_type)
 );
+
+
 
 
 CREATE TABLE IF NOT EXISTS actor (
   id_actor INT NOT NULL AUTO_INCREMENT,
-  actor_name VARCHAR(45) NOT NULL,
+  actor_name VARCHAR(255) NOT NULL,
   PRIMARY KEY (id_actor)
 );
 
 
 CREATE TABLE IF NOT EXISTS cast (
   id_cast INT NOT NULL AUTO_INCREMENT,
-  cast_names VARCHAR(255) NOT NULL,
+  cast_names TEXT,
   fk_id_show_catalog INT NOT NULL,
   fk_id_actor INT NOT NULL,
   PRIMARY KEY (id_cast),
@@ -41,26 +54,27 @@ CREATE TABLE IF NOT EXISTS cast (
 
 
 CREATE TABLE IF NOT EXISTS country (
-  id_country_acronym VARCHAR(2) NOT NULL,
-  name_country VARCHAR(45) NOT NULL,
-  PRIMARY KEY (id_country_acronym)
+  id_country INT NOT NULL AUTO_INCREMENT,
+  name_country VARCHAR(255) NOT NULL,
+  PRIMARY KEY (id_country)
 );
 
 
 CREATE TABLE IF NOT EXISTS director (
   id_director INT NOT NULL AUTO_INCREMENT,
-  director_name VARCHAR(45) NOT NULL,
+  director_name VARCHAR(255) NOT NULL,
   PRIMARY KEY (id_director)
 );
 
 
+
 CREATE TABLE IF NOT EXISTS show_catalog_country (
   fk_id_show_catalog INT NOT NULL,
-  fk_id_country_acronym VARCHAR(2) NOT NULL,
-  INDEX fk_id_country_acronym_idx (fk_id_country_acronym ASC),
-  CONSTRAINT fk_id_country_acronym_catalog
-    FOREIGN KEY (fk_id_country_acronym)
-    REFERENCES country (id_country_acronym),
+  fk_id_country INT NOT NULL,
+  INDEX fk_id_country_idx (fk_id_country ASC),
+  CONSTRAINT fk_id_country_catalog
+    FOREIGN KEY (fk_id_country)
+    REFERENCES country (id_country),
   CONSTRAINT fk_id_show_catalog_country
     FOREIGN KEY (fk_id_show_catalog)
     REFERENCES show_catalog (id_show_catalog)
@@ -98,3 +112,5 @@ CREATE TABLE IF NOT EXISTS show_catalog_show_type (
     REFERENCES show_type (id_show_type),
   PRIMARY KEY (fk_id_show_catalogs, fk_id_show_types)
 );
+
+
