@@ -6,22 +6,22 @@ neo4j_username = "neo4j"
 neo4j_password = "wr99582435"
 arq = 'Arquivo CSV/Arquivo_transicao/show_extract.csv'
 
-def criar_indices_e_inserir_neo4j(neo4j_url, neo4j_username, neo4j_password, csv_file):
+def criar_inserir_neo4j(neo4j_url, neo4j_username, neo4j_password, csv_file):
 
     conexao = GraphDatabase.driver(neo4j_url, auth=(neo4j_username, neo4j_password))
 
-    # Criando índices
+    # Criando índices, acelera no processo de incerssao de dados, sem a criacao previa demorou 17 min, com a criacao previa demorou 5
     with conexao.session() as session:
         session.run("CREATE INDEX IF NOT EXISTS FOR (a:Actor) ON (a.actor_name)")
         session.run("CREATE INDEX IF NOT EXISTS FOR (c:Country) ON (c.name_country)")
         session.run("CREATE INDEX IF NOT EXISTS FOR (d:Director) ON (d.director_name)")
 
-    # Inserindo nós e relacionamentos
+
     with conexao.session() as session:
-        with open(csv_file, 'r', encoding='utf-8') as file:
+        with open(csv_file, 'r', encoding='utf-8') as file:     # Inserindo nós e relacionamentos
             reader = csv.DictReader(file)
             for row in reader:
-                # Criar nó ShowCatalog
+                # Cria nó ShowCatalog
                 query_show = (
                     "CREATE (:ShowCatalog {id: toInteger($show_id), type_show: $type_show, title: $title, director: $director, cast: $cast, "
                     "country: $country, date_added: $date_added, release_year: toInteger($release_year), rating: $rating, duration: $duration, "
@@ -29,7 +29,7 @@ def criar_indices_e_inserir_neo4j(neo4j_url, neo4j_username, neo4j_password, csv
                 )
                 session.run(query_show, row)
 
-                # Criar relacionamento entre ShowCatalog e Actor
+                # Cria relacionamento entre ShowCatalog e Actor
                 query_actor = (
                     "MATCH (sc:ShowCatalog {id: toInteger($show_id)}) "
                     "UNWIND split($cast, ',') AS actor_name "
@@ -38,7 +38,7 @@ def criar_indices_e_inserir_neo4j(neo4j_url, neo4j_username, neo4j_password, csv
                 )
                 session.run(query_actor, row)
 
-                # Criar relacionamento entre ShowCatalog e Country
+                # Cria relacionamento entre ShowCatalog e Country
                 query_country = (
                     "MATCH (sc:ShowCatalog {id: toInteger($show_id)}) "
                     "MERGE (c:Country {name_country: $country}) "
@@ -46,7 +46,7 @@ def criar_indices_e_inserir_neo4j(neo4j_url, neo4j_username, neo4j_password, csv
                 )
                 session.run(query_country, row)
 
-                # Criar relacionamento entre ShowCatalog e Director
+                # Cria relacionamento entre ShowCatalog e Director
                 query_director = (
                     "MATCH (sc:ShowCatalog {id: toInteger($show_id)}) "
                     "MERGE (d:Director {director_name: $director}) "
@@ -54,8 +54,7 @@ def criar_indices_e_inserir_neo4j(neo4j_url, neo4j_username, neo4j_password, csv
                 )
                 session.run(query_director, row)
 
-    # Fechar conexão
     conexao.close()
 
-# Executar função para criar índices e inserir dados
-criar_indices_e_inserir_neo4j(neo4j_url, neo4j_username, neo4j_password, arq)
+
+criar_inserir_neo4j(neo4j_url, neo4j_username, neo4j_password, arq)
