@@ -25,6 +25,8 @@
     
     -Criar uma tabela temporaria **(show_temporaria)** para receber os dados pré processados
 
+    -Execultar o .py **(conexao_mysql)** para ingestao dos dados
+
     -Criar as demais tabelas normalizadas de acordo com o modelo lógico
 
     -Realizados os inserts (DML's) para popular as tabelas normalizadas com os dados da tabela temporaria
@@ -43,7 +45,7 @@
 
     -1ª forma:
 
-        -Execultar o código de ingestão de dados **(injestão.py)**
+        -Execultar o código de ingestão de dados **(ingestão.py)**
 
     -2ª forma:
 
