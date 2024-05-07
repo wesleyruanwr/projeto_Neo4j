@@ -1,12 +1,11 @@
 const express     = require('express');
 const app         = express();
 
+require("dotenv").config()
 const db          = require('./config/db/dbConnection');
 const router      = require('./routes/router');
 
-require("dotenv").config()
 const PORT        = process.env.PORT;
-
 
 // configuração para transporte dos dados em json.
 
