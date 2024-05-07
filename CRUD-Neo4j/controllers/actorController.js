@@ -1,6 +1,7 @@
 const neo4j = require('neo4j-driver');
+const dbConfig = require('../config/db/dbConfig');
 
-const driver = neo4j.driver("bolt://localhost:7687", neo4j.auth.basic("neo4j", "neo4j2024"));
+const driver = neo4j.driver(dbConfig.URI, neo4j.auth.basic(dbConfig.USER, dbConfig.PASSWORD));
 
 const actorController = {
 
@@ -9,6 +10,14 @@ const actorController = {
     const session = driver.session();
     try {
       const name = req.body.name;
+
+      // valida se o nome recebido está em formato válido.
+
+      const validateName = /^[a-zA-ZÀ-ÿ\s]+$/
+
+      if (!name || name === 'undefined' || !validateName.test(name)) {
+        return res.status(403).json({ msg: "um dos parâmetros não foi informado ou possui valor inválido." })
+      }
       const result = await session.run(
         `MERGE (a:Actor {actor_name: "${name}"}) RETURN a`
       );
@@ -64,22 +73,25 @@ const actorController = {
     try {
       const range = req.query.range
 
-      if (!range || range === 'undefined') {
+      if (!range || range === 'undefined' || isNaN(range)) {
         const result = await session.run(
-          `MATCH (a:Actor) RETURN a LIMIT 20`
+          `MATCH (a:Actor) RETURN a LIMIT 10`
         )
         const response = {
+          totalRecords: result.records.length,
           records: result.records,
         };
+
         return res.status(200).json({ response, msg: "Usuários retornados com sucesso." })
       }
       const query = `MATCH (a:Actor) RETURN a LIMIT ${range}`
       const result = await session.run(query)
 
       const response = {
+        totalRecords: result.records.length,
         records: result.records,
       };
-      res.status(200).json({ response, msg: "Usuários retornados com sucesso." })
+      res.status(200).json({ response, msg: "Atores retornados com sucesso." })
 
     } catch (error) {
       console.log(error);
@@ -94,22 +106,26 @@ const actorController = {
   getFilmsActorRel: async (req, res) => {
     const session = driver.session()
     try {
-      const { name, range } = req.body
+      const { name, range } = req.query
 
-      if (!name || name === 'undefined') {
-        return res.status(400).json({ msg: "Não foi possível obter nenhum dado da requisição." })
+      const validateName = /^[a-zA-ZÀ-ÿ\s]+$/
+      if (!name || name === 'undefined' || !validateName.test(name)) {
+        return res.status(403).json({ msg: "O parâmetro não foi informado ou possui valor inválido." })
       }
+
       if (!range || range === 'undefined') {
-        await session.run(`MATCH (a:Actor {actor_name: "${name}"})<-[r:HAS_CAST]-(s:ShowCatalog) RETURN a, r, s`)
+        const result = await session.run(`MATCH (a:Actor {actor_name: "${name}"})<-[r:HAS_CAST]-(s:ShowCatalog) RETURN a, r, s`)
         const response = {
+          totalRecords: result.records.length,
           records: result.records,
         };
         res.status(200).json({ response, msg: "Busca concluída com sucesso." });
       }
-      const query = `MATCH (a:Actor {actor_name: "${name}"})<-[r:HAS_CAST]-(s:ShowCatalog) RETURN a, r, s LIMIT ${range}`
+      const query = `MATCH (a:Actor {actor_name: "${name}"})<-[r:HAS_CAST]-(s:ShowCatalog) RETURN a, r, s LIMIT ${range} `
       const result = await session.run(query)
 
       const response = {
+        totalRecords: result.records.length,
         records: result.records,
       };
       res.status(200).json({ response, msg: "Busca concluída com sucesso." });
@@ -128,21 +144,36 @@ const actorController = {
     try {
       const { name, newName } = req.body;
 
-      if (!name || name === 'undefined' || !newName || newName === 'undefined') {
-        return res.status(403).json({ msg: "um dos parâmetros não foi informado." })
+      const validateName = /^[a-zA-ZÀ-ÿ\s]+$/
+
+      if (!name || name === 'undefined' || !newName || newName === 'undefined' || !validateName.test(name) || !validateName.test(newName)) {
+        return res.status(403).json({ msg: "um dos parâmetros não foi informado ou possui valor inválido." })
       }
       const query = `MATCH (a:Actor) 
                     WHERE a.actor_name = "${name}"
                     SET a.actor_name = "${newName}" 
                     RETURN a`
       const result = await session.run(query)
+      if(result.records.length === 0){
+        res.status(404).json({msg: "Não foi possível encontrar o ator para realizar a atualização."})
+      }
 
+      const updateCastQuery = `
+      MATCH (sc:ShowCatalog)
+      WHERE "${name}" IN split(sc.cast, ', ')
+      SET sc.cast = REPLACE(sc.cast, "${name}", "${newName}")
+      RETURN sc`
+
+      const updateResult = await session.run(updateCastQuery)
+
+      if(updateResult.records.length === 0){
+        return res.status(200).json({msg: "O ator mencionado foi atualizado, mas não possui relacioanmentos."})
+      }
       const response = {
-        records: result.records,
+        records: updateResult.records,
       };
 
       res.status(201).json({ response, msg: "Ator atualizado com sucesso." })
-
 
     } catch (error) {
       console.log(error);
@@ -157,12 +188,19 @@ const actorController = {
     const session = driver.session();
     try {
       const name = req.query.name;
-      if (!name || name === 'undefined') {
-        return res.status(404).json({ msg: "Ator não encontrado." })
+
+      const validateName = /^[a-zA-ZÀ-ÿ\s]+$/
+      if (!name || name === 'undefined' || !validateName.test(name)) {
+        return res.status(403).json({ msg: "O parâmetro não foi informado ou possui valor inválido." })
       }
+
+      // verifica se o ator possui relacionamentos.
+
+
       const query = `MATCH(a:Actor)
       WHERE a.actor_name = "${name}"
-      DELETE a RETURN a`
+      DETACH DELETE a 
+      RETURN a`
       const result = await session.run(query)
       const response = {
         records: result.records,
@@ -171,7 +209,7 @@ const actorController = {
 
     } catch (error) {
       console.log(error);
-      res.status(500).json({ msg: "Não foi possível realizar a busca." });
+      res.status(500).json({ msg: "Não foi possível encontrar o ator especificado." });
     } finally {
       if (session) await session.close();
     }
