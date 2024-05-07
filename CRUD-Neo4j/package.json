@@ -1,6 +1,6 @@
 {
   "name": "netflix_node_neo4j_crud",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Projeto de um CRUD utilizando NodeJS e o banco não relacional neo4j",
   "main": "index.js",
   "scripts": {
@@ -24,7 +24,6 @@
   },
   "homepage": "https://github.com/wesleyruanwr/projeto_UFC#readme",
   "dependencies": {
-    "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
     "neo4j-driver": "^5.20.0"
