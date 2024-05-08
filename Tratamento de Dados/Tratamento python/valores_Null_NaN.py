@@ -1,4 +1,5 @@
-#tratando valores Null e Not a Number com o mesmo codigo pois são equivalentes
+#tratando valores Null e Not a Number com o mesmo codigo pois o pandas trata
+#de maneira equivalente na manipulação de dados
 
 import pandas as pd
 
