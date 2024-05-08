@@ -1,3 +1,8 @@
+// para usar esse codigo diretamente no neo4j, seu arquivo de extração deve estar na pasta import
+// do seu dbms que no meu caso é "C:\Users\Wesley Ruan\.Neo4jDesktop\relate-data\dbmss\dbms-6e906cf1-d4bf-4775-8f94-f11a74e3f7aa\import"
+
+
+
 CREATE INDEX FOR (a:Actor) ON (a.actor_name);       //criar os index antes fez o tempo total de criacao cair de 17 min para 5 min
 
 CREATE INDEX FOR (c:Country) ON (c.name_country);
