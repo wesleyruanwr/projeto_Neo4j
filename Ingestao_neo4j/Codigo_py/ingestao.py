@@ -3,7 +3,7 @@ import csv
 
 neo4j_url = "bolt://localhost:7687"
 neo4j_username = "neo4j"
-neo4j_password = "wr99582435"
+neo4j_password = "neo4j2024"
 arq = 'Arquivo CSV/Arquivo_transicao/show_extract.csv'
 
 def criar_inserir_neo4j(neo4j_url, neo4j_username, neo4j_password, csv_file):
