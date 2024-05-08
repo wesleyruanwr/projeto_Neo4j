@@ -18,7 +18,7 @@ services:
       - 7474:7474
       - 7687:7687
     volumes:
-     ### The data store for the Neo4j database. 
+     ### armazenamentod e dados do bd neo4j
       - $HOME/neo4j/data:/data
       - $HOME/neo4j/logs:/logs
-      ### Output directory for Neo4 logs
+      ### diretorio de saida dos logs do neo4j
