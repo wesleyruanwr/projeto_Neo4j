@@ -2,7 +2,7 @@ from neo4j import GraphDatabase
 
 uri = "bolt://localhost:7687"
 username = "neo4j"
-password = "wr99582435"
+password = "neo4j2024"
 
 class CRUD:
     def __init__(self, uri, username, password):
