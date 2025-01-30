@@ -1,6 +1,6 @@
 **Este projeto tem como objetivo analisar o dataset Netflix disponível na plataforma Kaggle. O dataset contém informações sobre filmes e séries disponíveis na plataforma Netflix, como título, data de adição, gênero, diretor, elenco, entre outros.**
 
-*O dataset Netflix foi utilizado neste projeto. O dataset pode ser baixado na plataforma* **Kaggle**: *https://www.kaggle.com/datasets/syedmubarak/netflix-dataset-latest-2021*
+*O dataset Netflix que foi utilizado nesse projeto pode ser baixado na plataforma* **Kaggle**: *https://www.kaggle.com/datasets/syedmubarak/netflix-dataset-latest-2021*
 
 
 *O dataset foi pré-processado e normalizado. As seguintes etapas foram realizadas:*
